@@ -1,4 +1,4 @@
-import 'package:crafty_bay/feature/auth/ui/screen/sign_in_screen.dart';
+import 'package:crafty_bay/features/auth/ui/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import '../widgets/app_logo.dart';
 

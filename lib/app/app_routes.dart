@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../feature/auth/ui/screen/sign_in_screen.dart';
-import '../feature/auth/ui/screen/sign_up_screen.dart';
-import '../feature/auth/ui/screen/splash_screen.dart';
+import '../features/auth/ui/screens/sign_in_screen.dart';
+import '../features/auth/ui/screens/sign_up_screen.dart';
+import '../features/auth/ui/screens/splash_screen.dart';
 
 class AppRoutes {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
