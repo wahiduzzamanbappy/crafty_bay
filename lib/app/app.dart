@@ -37,7 +37,6 @@ class _CraftyBayState extends State<CraftyBay> {
                 TextStyle(fontWeight: FontWeight.w400, color: Colors.grey)),
         textTheme: TextTheme(
           titleLarge: TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
-          titleMedium: TextStyle(color: Colors.grey, fontSize: 16),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(

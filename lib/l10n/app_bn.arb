@@ -1,8 +1,9 @@
 {
-    "version": "ভার্সন",
-    "welcomeBack": "আপনাকে স্বাগতম",
-    "enterYourEmailAndPassword": "আপনার ইমেইল দিন",
-    "email": "ইমেইল",
-    "password": "পাসওয়ার্ড",
-    "signIn": "সাইন ইন"
+  "version": "ভার্সন",
+  "welcomeBack": "আপনাকে স্বাগতম",
+  "enterYourEmailAndPassword": "আপনার ইমেইল দিন",
+  "email": "ইমেইল",
+  "password": "পাসওয়ার্ড",
+  "signUp": "সাইন আপ",
+  "signIn": "সাইন ইন"
 }
