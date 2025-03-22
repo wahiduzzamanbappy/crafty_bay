@@ -1,6 +1,6 @@
 import 'package:crafty_bay/app/app_color.dart';
-import 'package:crafty_bay/feature/auth/ui/screen/sign_up_screen.dart';
-import 'package:crafty_bay/feature/auth/ui/widgets/app_logo.dart';
+import 'package:crafty_bay/features/auth/ui/screens/sign_up_screen.dart';
+import 'package:crafty_bay/features/auth/ui/widgets/app_logo.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
