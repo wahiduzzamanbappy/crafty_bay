@@ -2,9 +2,8 @@ import 'package:crafty_bay/app/assets_path.dart';
 import 'package:crafty_bay/features/home/ui/widgets/home_carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../widgets/app_bar_action_button.dart';
-import '../widgets/dection_header.dart';
+import '../widgets/section_header.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
