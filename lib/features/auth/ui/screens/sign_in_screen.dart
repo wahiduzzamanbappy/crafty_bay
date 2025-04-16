@@ -1,4 +1,5 @@
 import 'package:crafty_bay/app/app_color.dart';
+import 'package:crafty_bay/core/extention/localization_extension.dart';
 import 'package:crafty_bay/features/auth/ui/screens/sign_up_screen.dart';
 import 'package:crafty_bay/features/auth/ui/widgets/app_logo.dart';
 import 'package:flutter/gestures.dart';
@@ -39,7 +40,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
-                  labelText: 'Email',
+                  labelText: context.localization.email,
                 ),
               ),
               const SizedBox(height: 8),
@@ -48,7 +49,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 obscureText: true,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: 'Password',
+                  labelText: context.localization.password,
                 ),
               ),
               const SizedBox(height: 16),

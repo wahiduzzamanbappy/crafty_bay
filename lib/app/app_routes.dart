@@ -1,3 +1,4 @@
+import 'package:crafty_bay/features/common/ui/screens/main_bottom_nav_bar_screen.dart';
 import 'package:crafty_bay/features/home/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import '../features/auth/ui/screens/sign_in_screen.dart';
@@ -13,9 +14,11 @@ class AppRoutes {
       route = SignInScreen();
     } else if (settings.name == SignUpScreen.name) {
       route = SignUpScreen();
+    }else if (settings.name == MainBottomNavBarScreen.name) {
+      route = MainBottomNavBarScreen();
     } else if (settings.name == HomeScreen.name) {
       route = HomeScreen();
     }
-    return MaterialPageRoute(builder: (bappy) => route);
+    return MaterialPageRoute(builder: (ctx) => route);
   }
 }

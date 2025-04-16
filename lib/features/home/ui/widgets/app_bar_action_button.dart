@@ -17,7 +17,7 @@ class AppBarActionButton extends StatelessWidget {
         child: Icon(
           icon,
           color: Colors.black45,
-          size: 18,
+          size: 20,
         ),
       ),
     );
