@@ -27,10 +27,10 @@ class CategoryListScreen extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: GridView.builder(
-            itemCount: 10,
+            itemCount: 12,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5,
-              mainAxisSpacing: 15,
+              crossAxisCount: 4,
+              mainAxisSpacing: 14,
             ),
             itemBuilder: (BuildContext context, int index) {
               return FittedBox(

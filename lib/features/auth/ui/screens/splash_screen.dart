@@ -1,16 +1,16 @@
-import 'package:crafty_bay/features/auth/ui/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
-import '../../../home/ui/screens/home_screen.dart';
+import '../../../common/ui/screens/main_bottom_nav_bar_screen.dart';
 import '../widgets/app_logo.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
-  static const  name = '/';
+  static const name = '/';
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
+
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
@@ -19,8 +19,11 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _moveToNextScreen() async {
-    await Future.delayed(Duration(seconds: 2),);
-    Navigator.pushNamedAndRemoveUntil(context, HomeScreen.name, (predicate)=> false);
+    await Future.delayed(
+      Duration(seconds: 2),
+    );
+    Navigator.pushNamedAndRemoveUntil(
+        context, MainBottomNavBarScreen.name, (predicate) => false);
   }
 
   @override
@@ -45,5 +48,3 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
-
-

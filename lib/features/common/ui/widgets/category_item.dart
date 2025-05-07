@@ -1,3 +1,4 @@
+import 'package:crafty_bay/features/products/ui/screens/product_list_Screen.dart';
 import 'package:flutter/material.dart';
 import '../../../../app/app_color.dart';
 
@@ -10,7 +11,10 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      //onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, ProductListScreen.name,
+            arguments: 'Electronics');
+      },
       child: SizedBox(
         width: 140,
         child: Column(

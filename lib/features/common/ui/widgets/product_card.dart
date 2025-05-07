@@ -1,3 +1,4 @@
+import 'package:crafty_bay/features/products/ui/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import '../../../../app/app_color.dart';
 import '../../../../app/assets_path.dart';
@@ -10,7 +11,9 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, ProductDetailsScreen.name);
+      },
       child: Card(
         color: Colors.white,
         child: SizedBox(

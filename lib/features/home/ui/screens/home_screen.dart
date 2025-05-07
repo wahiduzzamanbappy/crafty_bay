@@ -2,6 +2,8 @@ import 'package:crafty_bay/app/assets_path.dart';
 import 'package:crafty_bay/features/home/ui/widgets/home_carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import '../../../common/controller/main_bottom_nav_bar_controller.dart';
 import '../../../common/ui/widgets/category_item.dart';
 import '../../../common/ui/widgets/product_card.dart';
 import '../widgets/app_bar_action_button.dart';
@@ -32,28 +34,27 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 32),
               SectionHeader(
                 title: 'All Category',
-                onTap: () {
-                  //Get.find<MainBottomNavBarController>().moveToCategory;
+                onTapSeeAll: () {
+                 Get.find<MainBottomNavBarController>().moveToCategory();
                 },
               ),
               _buildCategorySection(),
               const SizedBox(height: 16),
               SectionHeader(
                 title: 'Popular',
-                onTap: () {},
+                onTapSeeAll: () {},
               ),
               _buildProductSection(),
               const SizedBox(height: 16),
               SectionHeader(
-
                 title: 'Special',
-                onTap: () {},
+                onTapSeeAll: () {},
               ),
               _buildProductSection(),
               const SizedBox(height: 16),
               SectionHeader(
                 title: 'New',
-                onTap: () {},
+                onTapSeeAll: () {},
               ),
               _buildProductSection(),
             ],

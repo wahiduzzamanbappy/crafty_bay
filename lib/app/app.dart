@@ -1,8 +1,10 @@
 import 'package:crafty_bay/app/app_color.dart';
 import 'package:crafty_bay/app/app_routes.dart';
+import 'package:crafty_bay/app/controller_binder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 
 class CraftyBay extends StatefulWidget {
@@ -15,7 +17,7 @@ class CraftyBay extends StatefulWidget {
 class _CraftyBayState extends State<CraftyBay> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       onGenerateRoute: AppRoutes.onGenerateRoute,
@@ -48,7 +50,11 @@ class _CraftyBayState extends State<CraftyBay> {
             backgroundColor: AppColors.themeColor,
           ),
         ),
+        appBarTheme: AppBarTheme(
+          color: Colors.white
+        )
       ),
+
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -57,6 +63,7 @@ class _CraftyBayState extends State<CraftyBay> {
       ],
       locale: const Locale('en'),
       supportedLocales: const [Locale('en'), Locale('bn')],
+      initialBinding: ControllerBinder(),
     );
   }
 }
