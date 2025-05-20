@@ -1,6 +1,7 @@
 import 'package:crafty_bay/app/app_color.dart';
 import 'package:crafty_bay/features/products/ui/widget/product_image_carousel_slider.dart';
 import 'package:flutter/material.dart';
+import '../../../reviews/ui/screens/review_screens.dart';
 import '../widget/colors_picker.dart';
 import '../widget/product_increment_decrement_counter.dart';
 import '../widget/sizes_picker.dart';
@@ -59,7 +60,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         width: 8,
                                       ),
                                       TextButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.pushNamed(context, ReviewScreens.name);
+                                        },
                                         child: Text(
                                           'Reviews',
                                           style: TextStyle(fontSize: 16),

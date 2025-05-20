@@ -1,12 +1,20 @@
-import 'package:crafty_bay/app/app_color.dart';
-import 'package:crafty_bay/features/auth/ui/widgets/app_logo.dart';
+import 'package:crafty_bay/core/extensions/localization_extension.dart';
+import 'package:crafty_bay/core/widgets/cenetred_circular_progress_indicator.dart';
+import 'package:crafty_bay/features/auth/ui/screens/verify_otp_screen.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../../../app/app_color.dart';
+import '../../../../core/widgets/show_snack_bar_message.dart';
+import '../../data/models/sign_up_model.dart';
+import '../controllers/sign_up_controller.dart';
+import '../widgets/app_logo.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
-  static const name = '/sign-up';
+  static const String name = '/sign-up';
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -16,15 +24,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _emailTEController = TextEditingController();
   final TextEditingController _firstNameTEController = TextEditingController();
   final TextEditingController _lastNameTEController = TextEditingController();
-  final TextEditingController _mobileTEController = TextEditingController();
+  final TextEditingController _phoneTEController = TextEditingController();
   final TextEditingController _passwordTEController = TextEditingController();
-  final TextEditingController _shippingAddressTEController =
+  final TextEditingController _deliveryAddressTEController =
       TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final SignUpController signUpController = Get.find<SignUpController>();
 
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -38,93 +48,169 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget _buildForm(TextTheme textTheme) {
     return Form(
       key: _formKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         children: [
-          const SizedBox(height: 60),
-          AppLogo(),
-          const SizedBox(height: 16),
-          Text('Complete Profile', style: textTheme.titleLarge),
-          const SizedBox(height: 8),
-          Text('Get Started with us with your details',
-              style: textTheme.titleMedium),
-          const SizedBox(height: 16),
-          TextFormField(
-            controller: _emailTEController,
-            keyboardType: TextInputType.emailAddress,
-            textInputAction: TextInputAction.next,
-            decoration: InputDecoration(
-              labelText: 'Email',
-            ),
+          const SizedBox(height: 32),
+          const AppLogo(),
+          const SizedBox(height: 24),
+          Text(
+            'Register your email',
+            style: textTheme.titleLarge,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 8),
+          Text(
+            'Get Started With Your Details',
+            style: const TextStyle(color: Colors.grey, fontSize: 16),
+          ),
+          const SizedBox(height: 32),
+          TextFormField(
+              controller: _emailTEController,
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(hintText: context.localization.email),
+              validator: (String? value) {
+                String email = value ?? '';
+                if (!EmailValidator.validate(email)) {
+                  return 'Enter a valid email';
+                }
+                return null;
+              },),
+          const SizedBox(height: 8),
           TextFormField(
             controller: _firstNameTEController,
             textInputAction: TextInputAction.next,
-            decoration: InputDecoration(
-              labelText: 'First Name',
-            ),
+            decoration: InputDecoration(hintText: 'First Name'),
+            validator: (String? value) {
+              if (value?.trim().isEmpty ?? true) {
+                return 'Enter your first name';
+              }
+              return null;
+            },
           ),
           const SizedBox(height: 8),
           TextFormField(
             controller: _lastNameTEController,
             textInputAction: TextInputAction.next,
-            decoration: InputDecoration(
-              labelText: 'Last Name',
-            ),
+            decoration: InputDecoration(hintText: 'Last Name'),
+            validator: (String? value) {
+              if (value?.trim().isEmpty ?? true) {
+                return 'Enter your last name';
+              }
+              return null;
+            },
           ),
           const SizedBox(height: 8),
           TextFormField(
-            controller: _mobileTEController,
-            keyboardType: TextInputType.phone,
+            controller: _phoneTEController,
             textInputAction: TextInputAction.next,
-            decoration: InputDecoration(
-              labelText: 'Mobile',
-            ),
+            keyboardType: TextInputType.phone,
+            decoration: InputDecoration(hintText: 'Phone number'),
+            validator: (String? value) {
+              String phoneNumber = value ?? '';
+              RegExp regExp = RegExp(r'^(?:\+88|88)?01[3-9]\d{8}$');
+              if (regExp.hasMatch(phoneNumber) == false) {
+                return 'Enter your valid phone number';
+              }
+              return null;
+            },
           ),
           const SizedBox(height: 8),
           TextFormField(
             controller: _passwordTEController,
-            textInputAction: TextInputAction.next,
-            decoration: InputDecoration(
-              labelText: 'Password',
-            ),
+            decoration:
+                InputDecoration(hintText: context.localization.password),
+            validator: (String? value) {
+              if ((value?.isEmpty ?? true) || value!.length < 6) {
+                return 'Enter a password more than 6 letters';
+              }
+              return null;
+            },
           ),
           const SizedBox(height: 8),
           TextFormField(
-            controller: _shippingAddressTEController,
+            controller: _deliveryAddressTEController,
+            textInputAction: TextInputAction.next,
+            maxLines: 3,
             decoration: InputDecoration(
-              labelText: 'Shipping Address',
+              hintText: 'Delivery Address',
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 16,
+              ),
             ),
+            validator: (String? value) {
+              if (value?.trim().isEmpty ?? true) {
+                return 'Enter your delivery address';
+              }
+              return null;
+            },
           ),
           const SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text('Complete'),
-          ),
+          GetBuilder<SignUpController>(builder: (controller) {
+            return Visibility(
+              visible: controller.signUpInProgress == false,
+              replacement: const CenteredCircularProgressIndicator(),
+              child: ElevatedButton(
+                onPressed: _onTapSignUpButton,
+                child: Text('Sign Up'),
+              ),
+            );
+          }),
           const SizedBox(height: 24),
           RichText(
             text: TextSpan(
-                text: 'Already have an account! ',
-                style:
-                    TextStyle(color: Colors.grey, fontWeight: FontWeight.w600),
-                children: [
-                  TextSpan(
+              text: "Already have an account? ",
+              style: const TextStyle(
+                  color: Colors.grey, fontWeight: FontWeight.w600),
+              children: [
+                TextSpan(
                     text: 'Sign In',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: AppColors.themeColor,
                     ),
                     recognizer: TapGestureRecognizer()
-                      ..onTap = _onTapSignUpButton,
-                  ),
-                ]),
-          ),
+                      ..onTap = _onTapSignInButton),
+              ],
+            ),
+          )
         ],
       ),
     );
   }
 
-  void _onTapSignUpButton() {
+  Future<void> _onTapSignUpButton() async {
+    if (_formKey.currentState!.validate()) {
+      SignUpModel signUpModel = SignUpModel(
+        email: _emailTEController.text.trim(),
+        firstName: _firstNameTEController.text.trim(),
+        lastName: _lastNameTEController.text.trim(),
+        phone: _phoneTEController.text.trim(),
+        password: _passwordTEController.text,
+        deliveryAddress: _deliveryAddressTEController.text.trim(),
+      );
+      final bool isSuccess = await signUpController.signUp(signUpModel);
+      if (isSuccess) {
+        Navigator.pushNamed(context, VerifyOtpScreen.name);
+      } else {
+        showSnackBarMessage(context, signUpController.errorMessage!, true);
+      }
+    }
+  }
+
+  void _onTapSignInButton() {
     Navigator.pop(context);
+  }
+
+  @override
+  void dispose() {
+    _emailTEController.dispose();
+    _firstNameTEController.dispose();
+    _lastNameTEController.dispose();
+    _phoneTEController.dispose();
+    _passwordTEController.dispose();
+    _deliveryAddressTEController.dispose();
+    super.dispose();
   }
 }

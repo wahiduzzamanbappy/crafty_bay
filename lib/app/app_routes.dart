@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import '../features/auth/ui/screens/sign_in_screen.dart';
 import '../features/auth/ui/screens/sign_up_screen.dart';
 import '../features/auth/ui/screens/splash_screen.dart';
+import '../features/auth/ui/screens/verify_otp_screen.dart';
+import '../features/reviews/ui/screens/add_review_screen.dart';
+import '../features/reviews/ui/screens/review_screens.dart';
 
 class AppRoutes {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -15,13 +18,20 @@ class AppRoutes {
       route = SignInScreen();
     } else if (settings.name == SignUpScreen.name) {
       route = SignUpScreen();
-    }else if (settings.name == MainBottomNavBarScreen.name) {
+    } else if (settings.name == MainBottomNavBarScreen.name) {
       route = MainBottomNavBarScreen();
     } else if (settings.name == ProductListScreen.name) {
       final String category = settings.arguments as String;
       route = ProductListScreen(category: category);
     } else if (settings.name == ProductDetailsScreen.name) {
       route = ProductDetailsScreen();
+    } else if (settings.name == ReviewScreens.name) {
+      route = ReviewScreens();
+    } else if (settings.name == CreateReviewScreen.name) {
+      route = CreateReviewScreen();
+    } else if (settings.name == VerifyOtpScreen.name) {
+      String email = settings.arguments as String;
+      route = VerifyOtpScreen(email: email);
     }
     return MaterialPageRoute(builder: (ctx) => route);
   }
