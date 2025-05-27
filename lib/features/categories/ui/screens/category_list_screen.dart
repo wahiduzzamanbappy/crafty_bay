@@ -1,11 +1,33 @@
-import 'package:crafty_bay/features/common/controller/main_bottom_nav_bar_controller.dart';
-import 'package:crafty_bay/features/common/ui/widgets/category_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../app/assets_path.dart';
+import '../../../../core/widgets/cenetred_circular_progress_indicator.dart';
+import '../../../common/controller/category_controller.dart';
+import '../../../common/controller/main_bottom_nav_bar_controller.dart';
+import '../../../common/ui/widgets/category_item.dart';
 
-class CategoryListScreen extends StatelessWidget {
+class CategoryListScreen extends StatefulWidget {
   const CategoryListScreen({super.key});
+
+  @override
+  State<CategoryListScreen> createState() => _CategoryListScreenState();
+}
+
+class _CategoryListScreenState extends State<CategoryListScreen> {
+  final CategoryController _categoryController = Get.find<CategoryController>();
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _categoryController.getCategoryList();
+    _scrollController.addListener(_loadMoreData);
+  }
+
+  void _loadMoreData() {
+    if (_scrollController.position.extentAfter < 300) {
+      _categoryController.getCategoryList();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,28 +42,49 @@ class CategoryListScreen extends StatelessWidget {
             onPressed: () {
               Get.find<MainBottomNavBarController>().backToHome();
             },
-            icon: Icon(Icons.arrow_back_ios_new),
+            icon: const Icon(Icons.arrow_back_ios),
           ),
-          title: Text('Category'),
+          title: const Text('Categories'),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: GridView.builder(
-            itemCount: 12,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
-              mainAxisSpacing: 14,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              return FittedBox(
-                child: CategoryItem(
-                  text: 'Electronics',
-                  image: Image.asset(AssetsPath.electronicsCatPng),
+        body: GetBuilder<CategoryController>(builder: (controller) {
+          if (controller.isInitialLoading) {
+            return const CenteredCircularProgressIndicator();
+          }
+
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      controller.refreshList();
+                    },
+                    child: GridView.builder(
+                      controller: _scrollController,
+                      itemCount: controller.categoryList.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                        mainAxisSpacing: 16,
+                      ),
+                      itemBuilder: (context, index) {
+                        return FittedBox(
+                            child: CategoryItem(
+                          categoryModel: controller.categoryList[index],
+                        ));
+                      },
+                    ),
+                  ),
                 ),
-              );
-            },
-          ),
-        ),
+                Visibility(
+                  visible: controller.isLoading,
+                  child: const LinearProgressIndicator(),
+                )
+              ],
+            ),
+          );
+        }),
       ),
     );
   }

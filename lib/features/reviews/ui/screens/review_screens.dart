@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../../../../app/app_color.dart';
-import 'add_review_screen.dart';
+import 'add_new_review.dart';
 
 class ReviewScreens extends StatefulWidget {
   const ReviewScreens({super.key});
@@ -64,7 +63,7 @@ class _ReviewScreensState extends State<ReviewScreens> {
                   width: 140,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, CreateReviewScreen.name);
+                      Navigator.pushNamed(context, AddNewReviewScreen.name);
                     },
                     child: Text('Add Review'),
                   ),

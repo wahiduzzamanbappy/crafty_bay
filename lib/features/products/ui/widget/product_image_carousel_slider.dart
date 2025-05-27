@@ -1,9 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:crafty_bay/app/app_color.dart';
 import 'package:flutter/material.dart';
+import '../../../../app/app_color.dart';
 
 class ProductImageCarouselSlider extends StatefulWidget {
-  const ProductImageCarouselSlider({super.key});
+  const ProductImageCarouselSlider({
+    super.key, required this.imageList,
+  });
+
+  final List<String> imageList;
 
   @override
   State<ProductImageCarouselSlider> createState() => _ProductImageCarouselSliderState();
@@ -16,31 +20,23 @@ class _ProductImageCarouselSliderState extends State<ProductImageCarouselSlider>
   Widget build(BuildContext context) {
     return Stack(
       children: [
-          CarouselSlider(
-            options: CarouselOptions(
-              height: 220,
-              viewportFraction: 1,
-              onPageChanged: (index, reason) {
-                _selectedSlider = index;
-                setState(() {});
-              },
-            ),
-            items: [1, 2, 3, 4, 5].map((i) {
-              return Builder(builder: (BuildContext) {
-                return Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(horizontal: 2),
-                  color: Colors.grey,
-                  child: Center(
-                    child: Text(
-                      'image $i',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                );
-              });
-            }).toList(),
+        CarouselSlider(
+          options: CarouselOptions(
+            height: 220,
+            viewportFraction: 1,
+            onPageChanged: (index, reason) {
+              _selectedSlider = index;
+              setState(() {});
+            },
           ),
+          items: widget.imageList.map((image) {
+            return Builder(
+              builder: (BuildContext context) {
+                return Image.network(image, fit: BoxFit.cover);
+              },
+            );
+          }).toList(),
+        ),
         Positioned(
           bottom: 8,
           left: 0,
@@ -48,22 +44,23 @@ class _ProductImageCarouselSliderState extends State<ProductImageCarouselSlider>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              for (int i = 0; i < 5; i++)
+              for (int i = 0; i < widget.imageList.length; i++)
                 Container(
                   height: 16,
                   width: 16,
+                  margin: const EdgeInsets.only(left: 4),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(16),
                     border: Border.all(color: Colors.grey),
                     color: _selectedSlider == i
                         ? AppColors.themeColor
                         : Colors.white,
                   ),
-                ),
+                )
             ],
           ),
-        ),
-        ],
+        )
+      ],
     );
   }
 }

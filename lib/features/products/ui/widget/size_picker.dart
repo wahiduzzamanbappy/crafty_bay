@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import '../../../../app/app_color.dart';
 
-class ColorPicker extends StatefulWidget {
-  const ColorPicker({super.key, required this.colors, required this.onChange});
+class SizePicker extends StatefulWidget {
+  const SizePicker({super.key, required this.sizes, required this.onChange});
 
-  final List<String> colors;
+  final List<String> sizes;
   final Function(String) onChange;
 
   @override
-  State<ColorPicker> createState() => _ColorPickerState();
+  State<SizePicker> createState() => _SizePickerState();
 }
 
-class _ColorPickerState extends State<ColorPicker> {
+class _SizePickerState extends State<SizePicker> {
   String? selectedColor;
 
   @override
@@ -19,7 +19,7 @@ class _ColorPickerState extends State<ColorPicker> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Color', style: TextStyle(
+        const Text('Size', style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w600
         ),),
@@ -28,12 +28,12 @@ class _ColorPickerState extends State<ColorPicker> {
           height: 40,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: widget.colors.length,
+            itemCount: widget.sizes.length,
             itemBuilder: (context, index) {
-              String color = widget.colors[index];
+              String size = widget.sizes[index];
               return GestureDetector(
                 onTap: () {
-                  selectedColor = color;
+                  selectedColor = size;
                   widget.onChange(selectedColor!);
                   setState(() {});
                 },
@@ -41,13 +41,13 @@ class _ColorPickerState extends State<ColorPicker> {
                   height: 40,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
-                    color: selectedColor == color ? AppColors.themeColor : null,
+                    color: selectedColor == size ? AppColors.themeColor : null,
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   margin: const EdgeInsets.only(right: 8),
                   alignment: Alignment.center,
-                  child: Text(color, style: TextStyle(
-                    color: selectedColor == color ? Colors.white : null,
+                  child: Text(size, style: TextStyle(
+                    color: selectedColor == size ? Colors.white : null,
                   ),),
                 ),
               );

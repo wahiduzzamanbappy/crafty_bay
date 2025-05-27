@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class CreateReviewScreen extends StatefulWidget {
-  const CreateReviewScreen({super.key});
+class AddNewReviewScreen extends StatefulWidget {
+  const AddNewReviewScreen({super.key});
 
   static const String name = '/create-review';
 
   @override
-  State<CreateReviewScreen> createState() => _CreateReviewScreenState();
+  State<AddNewReviewScreen> createState() => _AddNewReviewScreenState();
 }
 
-class _CreateReviewScreenState extends State<CreateReviewScreen> {
+class _AddNewReviewScreenState extends State<AddNewReviewScreen> {
   final TextEditingController _firstNameTEController = TextEditingController();
   final TextEditingController _descriptionTEController =
       TextEditingController();

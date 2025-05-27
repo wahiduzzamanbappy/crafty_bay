@@ -1,8 +1,9 @@
 import 'dart:convert';
-import '../../features/auth/ui/controllers/auth_controller.dart';
 import 'package:get/get.dart' as getx;
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
+
+import '../../features/auth/ui/controllers/auth_controller.dart';
 
 class NetworkResponse {
   final int statusCode;
